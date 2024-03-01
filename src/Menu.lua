@@ -1,3 +1,4 @@
+---@diagnostic disable: missing-parameter, undefined-field, inject-field, param-type-mismatch
 ---
 --- @author Dylan MALANDAIN, Kalyptus
 --- @version 1.0.0
@@ -94,7 +95,7 @@ end
 ---@param G number
 ---@param B number
 ---@param A number
----@return RageUIMenus
+---@return RageUIMenus | nil
 ---@public
 function RageUI.CreateSubMenu(ParentMenu, Title, Subtitle, X, Y, TextureDictionary, TextureName, R, G, B, A)
 	if ParentMenu ~= nil then
@@ -167,6 +168,7 @@ function RageUIMenus:RemoveInstructionButton(button)
 	end
 end
 
+---@param Visible boolean
 function RageUIMenus:UpdateInstructionalButtons(Visible)
 
 	if not Visible then
@@ -221,7 +223,7 @@ end
 
 ---IsVisible
 ---@param Item fun(Item:Items)
----@param Panel fun(Panel:Panels
+---@param Panel fun(Panel:Panels)
 function RageUIMenus:IsVisible(Item, Panel)
 	if (RageUI.Visible(self)) and (UpdateOnscreenKeyboard() ~= 0) and (UpdateOnscreenKeyboard() ~= 3) then
 		RageUI.Banner()
@@ -230,7 +232,9 @@ function RageUIMenus:IsVisible(Item, Panel)
 		RageUI.Background();
 		RageUI.Navigation();
 		RageUI.Description();
-		Panel(Panels);
+		if Panel then
+			Panel(Panels);
+		end
 		RageUI.PoolMenus.Timer = 1
 		RageUI.Render()
 	end

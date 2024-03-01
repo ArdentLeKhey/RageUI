@@ -11,7 +11,6 @@ Keys = {};
 ---@param ControlName string
 ---@param Description string
 ---@param Action function
----@return Keys
 ---@public
 function Keys.Register(Controls, ControlName, Description, Action)
     RegisterKeyMapping(string.format('keys-%s', ControlName), Description, "keyboard", Controls)

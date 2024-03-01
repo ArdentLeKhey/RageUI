@@ -116,7 +116,7 @@ end
 ---@param Action fun(X:number, Y:number, CharacterX:number, CharacterY:number)
 ---@param Index number
 ---@public
----@return void
+---@return nil
 function Panels:Grid(StartedX, StartedY, TopText, BottomText, LeftText, RightText, Action, Index)
     UIGridPanel(GridType.Default, StartedX, StartedY, TopText, BottomText, LeftText, RightText, Action, Index)
 end
@@ -128,7 +128,7 @@ end
 ---@param Action fun(X:number, Y:number, CharacterX:number, CharacterY:number)
 ---@param Index number
 ---@public
----@return void
+---@return nil
 function Panels:GridHorizontal(StartedX, LeftText, RightText, Action, Index)
     UIGridPanel(GridType.Horizontal, StartedX, nil, nil, nil, LeftText, RightText, Action, Index)
 end
@@ -140,7 +140,7 @@ end
 ---@param Action fun(X:number, Y:number, CharacterX:number, CharacterY:number)
 ---@param Index number
 ---@public
----@return void
+---@return nil
 function Panels:GridVertical(StartedY, TopText, BottomText, Action, Index)
     UIGridPanel(GridType.Vertical, nil, StartedY, TopText, BottomText, nil, nil, Action, Index)
 end

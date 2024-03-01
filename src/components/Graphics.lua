@@ -1,3 +1,4 @@
+---@diagnostic disable: missing-parameter, redefined-local, undefined-field
 ---
 --- @author Dylan MALANDAIN, Kalyptus
 --- @version 1.0.0

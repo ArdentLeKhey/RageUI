@@ -12,7 +12,7 @@ Audio = {}
 ---
 ---@param Library string
 ---@param Sound string
----@param IsLooped boolean
+---@param IsLooped? boolean
 ---@return nil
 ---@public
 function Audio.PlaySound(Library, Sound, IsLooped)
@@ -32,5 +32,3 @@ function Audio.PlaySound(Library, Sound, IsLooped)
         end
     end
 end
-
-

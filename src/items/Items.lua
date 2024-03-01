@@ -1,3 +1,4 @@
+---@diagnostic disable: cast-local-type, undefined-global
 ---
 --- @author Dylan MALANDAIN, Kalyptus
 --- @version 1.0.0
@@ -55,7 +56,7 @@ Items = {}
 ---@param Actions fun(onSelected:boolean, onActive:boolean)
 ---@param Submenu any
 ---@public
----@return void
+---@return nil
 function Items:AddButton(Label, Description, Style, Actions, Submenu)
     local CurrentMenu = RageUI.CurrentMenu
     local Option = RageUI.Options + 1
@@ -220,7 +221,7 @@ end
 ---
 ---@param Label string
 ---@public
----@return void
+---@return nil
 function Items:AddSeparator(Label)
     local CurrentMenu = RageUI.CurrentMenu
     local Option = RageUI.Options + 1
@@ -251,7 +252,7 @@ end
 ---@param Index number
 ---@param Style table<any, any>
 ---@param Description string
----@param Actions fun(Index:number, onSelected:boolean, onListChange:boolean))
+---@param Actions fun(Index:number, onSelected:boolean, onListChange:boolean, active:boolean))
 ---@param Submenu any
 function Items:AddList(Label, Items, Index, Description, Style, Actions, Submenu)
     local CurrentMenu = RageUI.CurrentMenu;
