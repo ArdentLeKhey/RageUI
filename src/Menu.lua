@@ -1,3 +1,4 @@
+---@diagnostic disable: missing-parameter, undefined-field, inject-field, param-type-mismatch
 ---
 --- @author Dylan MALANDAIN, Kalyptus
 --- @version 1.0.0

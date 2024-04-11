@@ -1,3 +1,4 @@
+---@diagnostic disable: cast-local-type, undefined-global
 ---
 --- @author Dylan MALANDAIN, Kalyptus
 --- @version 1.0.0
