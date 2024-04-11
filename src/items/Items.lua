@@ -9,13 +9,16 @@ local ItemsSettings = {
     CheckBox = {
         Textures = {
             "shop_box_blankb", -- 1
-            "shop_box_tickb", -- 2
-            "shop_box_blank", -- 3
-            "shop_box_tick", -- 4
+            "shop_box_tickb",  -- 2
+            "shop_box_blank",  -- 3
+            "shop_box_tick",   -- 4
             "shop_box_crossb", -- 5
-            "shop_box_cross", -- 6
+            "shop_box_cross",  -- 6
         },
-        X = 380, Y = -6, Width = 50, Height = 50
+        X = 380,
+        Y = -6,
+        Width = 50,
+        Height = 50
     },
     Rectangle = {
         Y = 0, Width = 431, Height = 38
@@ -55,7 +58,7 @@ Items = {}
 ---@param Actions fun(onSelected:boolean, onActive:boolean)
 ---@param Submenu any
 ---@public
----@return void
+---@return nil
 function Items:AddButton(Label, Description, Style, Actions, Submenu)
     if Submenu then
         Style.RightLabel = '→'
@@ -135,7 +138,6 @@ function Items:CheckBox(Label, Description, Checked, Style, Actions)
 
     local Option = RageUI.Options + 1
     if CurrentMenu.Pagination.Minimum <= Option and CurrentMenu.Pagination.Maximum >= Option then
-
         local Active = CurrentMenu.Index == Option;
         local Selected = false;
         local LeftBadgeOffset = ((Style.LeftBadge == RageUI.BadgeStyle.None or Style.LeftBadge == nil) and 0 or 27)
@@ -184,12 +186,12 @@ function Items:CheckBox(Label, Description, Checked, Style, Actions)
         if (Active) then
             if Style.RightLabel ~= nil and Style.RightLabel ~= "" then
                 Graphics.Text(Style.RightLabel, CurrentMenu.X + 420 - RightBadgeOffset + CurrentMenu.WidthOffset, CurrentMenu.Y + 4 + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, 0.35, 0, 0, 0, 255, 2)
-                BoxOffset = MeasureStringWidth(Style.RightLabel, 0, 0.35)
+                BoxOffset = Graphics.MeasureStringWidth(Style.RightLabel, 0, 0.35)
             end
         else
             if Style.RightLabel ~= nil and Style.RightLabel ~= "" then
                 Graphics.Text(Style.RightLabel, CurrentMenu.X + 420 - RightBadgeOffset + CurrentMenu.WidthOffset, CurrentMenu.Y + 4 + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, 0.35, 245, 245, 245, 255, 2)
-                BoxOffset = MeasureStringWidth(Style.RightLabel, 0, 0.35)
+                BoxOffset = Graphics.MeasureStringWidth(Style.RightLabel, 0, 0.35)
             end
         end
 
@@ -228,7 +230,7 @@ end
 ---
 ---@param Label string
 ---@public
----@return void
+---@return nil
 function Items:AddSeparator(Label)
     local CurrentMenu = RageUI.CurrentMenu
     local Option = RageUI.Options + 1
@@ -257,10 +259,10 @@ end
 ---@param Label string
 ---@param Items table<any, any>
 ---@param Index number
----@param Style table<any, any>
----@param Description string
----@param Actions fun(Index:number, onSelected:boolean, onListChange:boolean)
----@param Submenu any
+---@param Description string?
+---@param Style table
+---@param Actions fun(Index:number, onSelected:boolean, onListChange:boolean, Active:boolean?, Items:table<any, any>?)
+---@param Submenu RageUIMenus?
 function Items:AddList(Label, Items, Index, Description, Style, Actions, Submenu)
     local CurrentMenu = RageUI.CurrentMenu;
 
@@ -282,11 +284,11 @@ function Items:AddList(Label, Items, Index, Description, Style, Actions, Submenu
             if Active then
                 if Style.RightLabel ~= nil and Style.RightLabel ~= "" then
                     Graphics.Text(Style.RightLabel, CurrentMenu.X + 420 - RightBadgeOffset + CurrentMenu.WidthOffset, CurrentMenu.Y + 4 + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, 0.35, 0, 0, 0, 255, 2)
-                    RightOffset = Graphics.MeasureStringWidth(Style.RightLabel, 0, 0.35)
+                    RightOffset = Graphics.Graphics.MeasureStringWidth(Style.RightLabel, 0, 0.35)
                 end
             else
                 if Style.RightLabel ~= nil and Style.RightLabel ~= "" then
-                    RightOffset = Graphics.MeasureStringWidth(Style.RightLabel, 0, 0.35)
+                    RightOffset = Graphics.Graphics.MeasureStringWidth(Style.RightLabel, 0, 0.35)
                     Graphics.Text(Style.RightLabel, CurrentMenu.X + 420 - RightBadgeOffset + CurrentMenu.WidthOffset, CurrentMenu.Y + 4 + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, 0.35, 245, 245, 245, 255, 2)
                 end
             end
@@ -378,7 +380,7 @@ end
 ---@param Index number
 ---@param Style table<any, any>
 ---@param Description string
----@param Actions fun(Index:number, onSelected:boolean, onListChange:boolean)
+---@param Actions fun(Index:number, onSelected:boolean, onListChange:boolean, Active:boolean?, Items:table<any, any>?)
 ---@param Submenu any
 function Items:AddList2(Label, Items, Index, NameCB, Description, Style, Actions, Submenu)
     local CurrentMenu = RageUI.CurrentMenu;
@@ -403,11 +405,11 @@ function Items:AddList2(Label, Items, Index, NameCB, Description, Style, Actions
             if Active then
                 if Style.RightLabel ~= nil and Style.RightLabel ~= "" then
                     Graphics.Text(Style.RightLabel, CurrentMenu.X + 420 - RightBadgeOffset + CurrentMenu.WidthOffset, CurrentMenu.Y + 4 + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, 0.35, 0, 0, 0, 255, 2)
-                    RightOffset = Graphics.MeasureStringWidth(Style.RightLabel, 0, 0.35)
+                    RightOffset = Graphics.Graphics.MeasureStringWidth(Style.RightLabel, 0, 0.35)
                 end
             else
                 if Style.RightLabel ~= nil and Style.RightLabel ~= "" then
-                    RightOffset = Graphics.MeasureStringWidth(Style.RightLabel, 0, 0.35)
+                    RightOffset = Graphics.Graphics.MeasureStringWidth(Style.RightLabel, 0, 0.35)
                     Graphics.Text(Style.RightLabel, CurrentMenu.X + 420 - RightBadgeOffset + CurrentMenu.WidthOffset, CurrentMenu.Y + 4 + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, 0.35, 245, 245, 245, 255, 2)
                 end
             end
@@ -492,7 +494,6 @@ function Items:AddList2(Label, Items, Index, NameCB, Description, Style, Actions
     end
     RageUI.Options = RageUI.Options + 1
 end
-
 
 local list_stock = {}
 
@@ -536,11 +537,11 @@ function Items:AddAutoList(Label, Items, FirstIndex, Description, Style, Actions
             if Active then
                 if Style.RightLabel ~= nil and Style.RightLabel ~= "" then
                     Graphics.Text(Style.RightLabel, CurrentMenu.X + 420 - RightBadgeOffset + CurrentMenu.WidthOffset, CurrentMenu.Y + 4 + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, 0.35, 0, 0, 0, 255, 2)
-                    RightOffset = Graphics.MeasureStringWidth(Style.RightLabel, 0, 0.35)
+                    RightOffset = Graphics.Graphics.MeasureStringWidth(Style.RightLabel, 0, 0.35)
                 end
             else
                 if Style.RightLabel ~= nil and Style.RightLabel ~= "" then
-                    RightOffset = Graphics.MeasureStringWidth(Style.RightLabel, 0, 0.35)
+                    RightOffset = Graphics.Graphics.MeasureStringWidth(Style.RightLabel, 0, 0.35)
                     Graphics.Text(Style.RightLabel, CurrentMenu.X + 420 - RightBadgeOffset + CurrentMenu.WidthOffset, CurrentMenu.Y + 4 + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, 0.35, 245, 245, 245, 255, 2)
                 end
             end
@@ -633,10 +634,10 @@ local range_stock = {}
 
 ---AddList
 ---@param Label string
----@param Items table<any, any>
+---@param Range table<any, any>
 ---@param Style table<any, any>
 ---@param Description string
----@param Actions fun(Index:number, onSelected:boolean, onListChange:boolean, isActive:boolean, Items:table<any, any>, SetIndex: fun(newIndex:boolean))
+---@param Actions fun(Index:number, onSelected:boolean, onListChange:boolean, isActive:boolean, Item:any, Items:table<any, any>, SetIndex: fun(newIndex:boolean))
 ---@param Submenu any
 function Items:AddRange(Label, Range, FirstIndex, NameCB, Description, Style, Actions, Submenu)
     local CurrentMenu = RageUI.CurrentMenu;
@@ -685,11 +686,11 @@ function Items:AddRange(Label, Range, FirstIndex, NameCB, Description, Style, Ac
             if Active then
                 if Style.RightLabel ~= nil and Style.RightLabel ~= "" then
                     Graphics.Text(Style.RightLabel, CurrentMenu.X + 420 - RightBadgeOffset + CurrentMenu.WidthOffset, CurrentMenu.Y + 4 + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, 0.35, 0, 0, 0, 255, 2)
-                    RightOffset = Graphics.MeasureStringWidth(Style.RightLabel, 0, 0.35)
+                    RightOffset = Graphics.Graphics.MeasureStringWidth(Style.RightLabel, 0, 0.35)
                 end
             else
                 if Style.RightLabel ~= nil and Style.RightLabel ~= "" then
-                    RightOffset = Graphics.MeasureStringWidth(Style.RightLabel, 0, 0.35)
+                    RightOffset = Graphics.Graphics.MeasureStringWidth(Style.RightLabel, 0, 0.35)
                     Graphics.Text(Style.RightLabel, CurrentMenu.X + 420 - RightBadgeOffset + CurrentMenu.WidthOffset, CurrentMenu.Y + 4 + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, 0.35, 245, 245, 245, 255, 2)
                 end
             end
@@ -778,61 +779,52 @@ function Items:AddRange(Label, Range, FirstIndex, NameCB, Description, Style, Ac
     RageUI.Options = RageUI.Options + 1
 end
 
---[[
-    Items:AddRange("bla", { 5, 10 }, function(Index, Value) return Index .. " : " .. Value end, nil, { IsDisabled = false }, function(Index, onSelected, onListChange, isActive, Items, SetIndex)
-        if (onListChange) then
-            print(Items[Index])
-        end
-    end)
-]]
+---> what is this for? Tests?
+-- Items:AddRange("bla", { 5, 10 }, function(Index, Value) return Index .. " : " .. Value end, nil, { IsDisabled = false }, function(Index, onSelected, onListChange, isActive, Items, SetIndex)
+--     if (onListChange) then
+--         print(Items[Index])
+--     end
+-- end)
 
 ---Heritage
 ---@param Mum number
 ---@param Dad number
 function Items:Heritage(Mum, Dad)
     local CurrentMenu = RageUI.CurrentMenu;
-    if Mum < 0 or Mum > 21 then
-        Mum = 0
-    end
-    if Dad < 0 or Dad > 23 then
-        Dad = 0
-    end
-    if Mum == 21 then
-        Mum = "special_female_" .. (tonumber(string.sub(Mum, 2, 2)) - 1)
-    else
-        Mum = "female_" .. Mum
-    end
-    if Dad >= 21 then
-        Dad = "special_male_" .. (tonumber(string.sub(Dad, 2, 2)) - 1)
-    else
-        Dad = "male_" .. Dad
-    end
+
+    Mum = math.clamp(Mum, 0, 21)
+    Dad = math.clamp(Dad, 0, 23)
+
+    local mum = (Mum == 21) and "special_female_" .. (tonumber(string.sub(Mum, 2, 2)) - 1) or "female_" .. Mum
+    local dad = (Dad >= 21) and "special_male_" .. (tonumber(string.sub(Dad, 2, 2)) - 1) or "male_" .. Dad
+
     Graphics.Sprite("pause_menu_pages_char_mom_dad", "mumdadbg", CurrentMenu.X, CurrentMenu.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 431 + (CurrentMenu.WidthOffset / 1), 228)
-    Graphics.Sprite("char_creator_portraits", Dad, CurrentMenu.X + 195 + (CurrentMenu.WidthOffset / 2), CurrentMenu.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 228, 228)
-    Graphics.Sprite("char_creator_portraits", Mum, CurrentMenu.X + 25 + (CurrentMenu.WidthOffset / 2), CurrentMenu.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 228, 228)
+    Graphics.Sprite("char_creator_portraits", dad, CurrentMenu.X + 195 + (CurrentMenu.WidthOffset / 2), CurrentMenu.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 228, 228)
+    Graphics.Sprite("char_creator_portraits", mum, CurrentMenu.X + 25 + (CurrentMenu.WidthOffset / 2), CurrentMenu.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 228, 228)
+
     RageUI.ItemOffset = RageUI.ItemOffset + 228
 end
 
+-- What even is this for??
 
 ---Text
 ---
 --- Add items button.
 ---
----@param Label string
----@param Description string
----@param Style table
----@param Actions fun(onSelected:boolean, onActive:boolean)
----@param Submenu any
----@public
----@return void
-function Items:AddText(Label, Text, minChar, maxChar, Description, Style, Actions)
-    self:AddButton(Label .. " : " .. Text or "", "Appuyez sur Entrer pour compléter le champ\n" .. Description, Style, function(onSelected, isActive)
-        if onSelected then
-            local text = Game.KeyboardInput(Label, Text, maxChar)
-            if text ~= nil and #text >= minChar then
-                Text = text
-            end
-        end
-        Actions(onSelected, isActive, Text)
-    end)
-end
+-- ---@param Label string
+-- ---@param Description string
+-- ---@param Style table
+-- ---@param Actions fun(onSelected:boolean, onActive:boolean, Text:string)
+-- ---@public
+-- ---@return nil
+-- function Items:AddText(Label, Text, minChar, maxChar, Description, Style, Actions)
+--     self:AddButton(Label .. (" : " .. (Text or "")), "Appuyez sur Entrer pour compléter le champ\n" .. Description, Style, function(onSelected, isActive)
+--         if onSelected then
+--             local text = Game.KeyboardInput(Label, Text, maxChar)
+--             if text ~= nil and #text >= minChar then
+--                 Text = text
+--             end
+--         end
+--         Actions(onSelected, isActive, Text)
+--     end)
+-- end
