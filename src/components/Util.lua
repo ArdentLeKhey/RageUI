@@ -5,11 +5,19 @@
 ---
 
 function math.round(num, numDecimalPlaces)
-    return tonumber(string.format("%." .. (numDecimalPlaces or 0) .. "f", num))
+	return tonumber(string.format("%." .. (numDecimalPlaces or 0) .. "f", num))
 end
 
 function string.starts(String, Start)
-    return string.sub(String, 1, string.len(Start)) == Start
+	return string.sub(String, 1, string.len(Start)) == Start
+end
+
+---@param value number
+---@param min number
+---@param max number
+---@return number
+function math.clamp(value, min, max)
+	return math.max(min, math.min(value, max))
 end
 
 local up_trans = {
@@ -33,6 +41,9 @@ local up_trans = {
 }
 
 local old_upper = string.upper
+
+
+---@diagnostic disable-next-line: duplicate-set-field
 function string.upper(str)
 	local res = old_upper(str)
 	for k, v in pairs(up_trans) do
