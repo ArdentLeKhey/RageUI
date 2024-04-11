@@ -8,14 +8,14 @@
 ---CreateMenu
 ---@param Title string
 ---@param Subtitle string
----@param X number
----@param Y number
----@param TextureDictionary string
----@param TextureName string
----@param R number
----@param G number
----@param B number
----@param A number
+---@param X number?
+---@param Y number?
+---@param TextureDictionary string?
+---@param TextureName string?
+---@param R number?
+---@param G number?
+---@param B number?
+---@param A number?
 ---@return RageUIMenus
 ---@public
 function RageUI.CreateMenu(Title, Subtitle, X, Y, TextureDictionary, TextureName, R, G, B, A)
@@ -79,42 +79,46 @@ function RageUI.CreateMenu(Title, Subtitle, X, Y, TextureDictionary, TextureName
 		end
 	end)
 
-	return setmetatable(Menu, RageUIMenus)
+	return setmetatable(Menu, RageUIMenus) --[[@as RageUIMenus]]
 end
 
 ---CreateSubMenu
----@param ParentMenu function
+---@param ParentMenu function | RageUIMenus
 ---@param Title string
 ---@param Subtitle string
----@param X number
----@param Y number
----@param TextureDictionary string
----@param TextureName string
----@param R number
----@param G number
----@param B number
----@param A number
----@return RageUIMenus
+---@param X number?
+---@param Y number?
+---@param TextureDictionary string?
+---@param TextureName string?
+---@param R number?
+---@param G number?
+---@param B number?
+---@param A number?
+---@return RageUIMenus | nil
 ---@public
 function RageUI.CreateSubMenu(ParentMenu, Title, Subtitle, X, Y, TextureDictionary, TextureName, R, G, B, A)
-	if ParentMenu ~= nil then
-		if ParentMenu() then
-			local Menu = RageUI.CreateMenu(Title or ParentMenu.Title, string.upper(Subtitle) or string.upper(ParentMenu.Subtitle), X or ParentMenu.X, Y or ParentMenu.Y)
-			Menu.Parent = ParentMenu
-			Menu.WidthOffset = ParentMenu.WidthOffset
-			Menu.Safezone = ParentMenu.Safezone
-			if ParentMenu.Sprite then
-				Menu.Sprite = { Dictionary = TextureDictionary or ParentMenu.Sprite.Dictionary, Texture = TextureName or ParentMenu.Sprite.Texture, Color = { R = R or ParentMenu.Sprite.Color.R, G = G or ParentMenu.Sprite.Color.G, B = B or ParentMenu.Sprite.Color.B, A = A or ParentMenu.Sprite.Color.A } }
-			else
-				Menu.Rectangle = ParentMenu.Rectangle
-			end
-			return setmetatable(Menu, RageUIMenus)
-		else
-			return nil
-		end
-	else
-		return nil
+	if ParentMenu == nil then
+		return
 	end
+
+	-- Why is this a function & why do we call it here ???
+	if not ParentMenu() then
+		return
+	end
+
+	local Menu = RageUI.CreateMenu(Title or ParentMenu.Title --[[@as string (change ParentMenu behaviour)]], string.upper(Subtitle) or string.upper(ParentMenu.Subtitle --[[@as string (change ParentMenu behaviour)]]), X or ParentMenu.X --[[@as number (change ParentMenu behaviour)]], Y or ParentMenu.Y --[[@as number (change ParentMenu behaviour)]])
+
+	Menu.Parent = ParentMenu --[[@as RageUIMenus]]
+	Menu.WidthOffset = Menu.Parent.WidthOffset
+	Menu.Safezone = Menu.Parent.Safezone
+
+	if Menu.Parent.Sprite then
+		Menu.Sprite = { Dictionary = TextureDictionary or Menu.Parent.Sprite.Dictionary, Texture = TextureName or Menu.Parent.Sprite.Texture, Color = { R = R or Menu.Parent.Sprite.Color.R, G = G or Menu.Parent.Sprite.Color.G, B = B or Menu.Parent.Sprite.Color.B, A = A or Menu.Parent.Sprite.Color.A } }
+	else
+		Menu.Rectangle = Menu.Parent.Rectangle
+	end
+
+	return setmetatable(Menu, RageUIMenus)
 end
 
 ---SetSubtitle
@@ -144,7 +148,7 @@ end
 function RageUIMenus:AddInstructionButton(button)
 	if type(button) == "table" and #button == 2 then
 		table.insert(self.InstructionalButtons, button)
-		self.UpdateInstructionalButtons(true);
+		self:UpdateInstructionalButtons(true);
 	end
 end
 
@@ -153,7 +157,7 @@ function RageUIMenus:RemoveInstructionButton(button)
 		for i = 1, #self.InstructionalButtons do
 			if button == self.InstructionalButtons[i] then
 				table.remove(self.InstructionalButtons, i)
-				self.UpdateInstructionalButtons(true);
+				self:UpdateInstructionalButtons(true);
 				break
 			end
 		end
@@ -161,14 +165,14 @@ function RageUIMenus:RemoveInstructionButton(button)
 		if tonumber(button) then
 			if self.InstructionalButtons[tonumber(button)] then
 				table.remove(self.InstructionalButtons, tonumber(button))
-				self.UpdateInstructionalButtons(true);
+				self:UpdateInstructionalButtons(true);
 			end
 		end
 	end
 end
 
+---@param Visible boolean
 function RageUIMenus:UpdateInstructionalButtons(Visible)
-
 	if not Visible then
 		return
 	end
@@ -221,7 +225,7 @@ end
 
 ---IsVisible
 ---@param Item fun(Item:Items)
----@param Panel fun(Panel:Panels
+---@param Panel fun(Panel:Panels)
 function RageUIMenus:IsVisible(Item, Panel)
 	if (RageUI.Visible(self)) and (UpdateOnscreenKeyboard() ~= 0) and (UpdateOnscreenKeyboard() ~= 3) then
 		RageUI.Banner()
