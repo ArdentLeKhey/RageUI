@@ -116,7 +116,7 @@ end
 ---@param Action fun(X:number, Y:number, CharacterX:number, CharacterY:number)
 ---@param Index number
 ---@public
----@return void
+---@return nil
 function Panels:Grid(StartedX, StartedY, TopText, BottomText, LeftText, RightText, Action, Index)
     UIGridPanel(GridType.Default, StartedX, StartedY, TopText, BottomText, LeftText, RightText, Action, Index)
 end
@@ -128,7 +128,7 @@ end
 ---@param Action fun(X:number, Y:number, CharacterX:number, CharacterY:number)
 ---@param Index number
 ---@public
----@return void
+---@return nil
 function Panels:GridHorizontal(StartedX, LeftText, RightText, Action, Index)
     UIGridPanel(GridType.Horizontal, StartedX, nil, nil, nil, LeftText, RightText, Action, Index)
 end
@@ -140,11 +140,10 @@ end
 ---@param Action fun(X:number, Y:number, CharacterX:number, CharacterY:number)
 ---@param Index number
 ---@public
----@return void
+---@return nil
 function Panels:GridVertical(StartedY, TopText, BottomText, Action, Index)
     UIGridPanel(GridType.Vertical, nil, StartedY, TopText, BottomText, nil, nil, Action, Index)
 end
-
 
 ---@type table
 local Colour = {
@@ -164,25 +163,23 @@ local Colour = {
 ---@param Callback function
 ---@return nil
 ---@public
----@return void
+---@return nil
 function Panels:Colour(Title, Colours, MinimumIndex, CurrentIndex, Callback, Index)
-
     ---@type table
     local CurrentMenu = RageUI.CurrentMenu;
 
     if CurrentMenu ~= nil then
         if (CurrentMenu.Index == Index) then
-
             ---@type number
             local Maximum = (#Colours > 9) and 9 or #Colours
 
             ---@type boolean
             local Hovered = Graphics.IsMouseInBounds(CurrentMenu.X + Colour.Box.X + CurrentMenu.SafeZoneSize.X + (CurrentMenu.WidthOffset / 2), CurrentMenu.Y + Colour.Box.Y + CurrentMenu.SafeZoneSize.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, (Colour.Box.Width * Maximum), Colour.Box.Height)
 
-            ---@type number
+            ---@type boolean
             local LeftArrowHovered = Graphics.IsMouseInBounds(CurrentMenu.X + Colour.LeftArrow.X + CurrentMenu.SafeZoneSize.X + (CurrentMenu.WidthOffset / 2), CurrentMenu.Y + Colour.LeftArrow.Y + CurrentMenu.SafeZoneSize.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, Colour.LeftArrow.Width, Colour.LeftArrow.Height)
 
-            ---@type number
+            ---@type boolean
             local RightArrowHovered = Graphics.IsMouseInBounds(CurrentMenu.X + Colour.RightArrow.X + CurrentMenu.SafeZoneSize.X + (CurrentMenu.WidthOffset / 2), CurrentMenu.Y + Colour.RightArrow.Y + CurrentMenu.SafeZoneSize.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, Colour.RightArrow.Width, Colour.RightArrow.Height)
 
             ---@type boolean
@@ -267,7 +264,6 @@ function Panels:Percent(Percent, HeaderText, MinText, MaxText, Callback, Index)
 
     if CurrentMenu ~= nil then
         if (CurrentMenu.Index == Index) then
-
             ---@type boolean
             local Hovered = Graphics.IsMouseInBounds(CurrentMenu.X + Percentage.Bar.X + CurrentMenu.SafeZoneSize.X, CurrentMenu.Y + Percentage.Bar.Y + CurrentMenu.SafeZoneSize.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset - 4, Percentage.Bar.Width + CurrentMenu.WidthOffset, Percentage.Bar.Height + 8)
 
