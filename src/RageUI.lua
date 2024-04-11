@@ -7,6 +7,17 @@
 RageUI = {};
 
 ---@class RageUIMenus
+---@field InstructionalButtons table
+---@field InstructionalScaleform number
+---@field Closable boolean
+---@field Parent RageUIMenus
+---@field WidthOffset number
+---@field Safezone number
+---@field Sprite any (todo)
+---@field Rectangle any (todo)
+---@field X number
+---@field Y number
+---@field EnableMouse boolean
 RageUIMenus = setmetatable({}, RageUIMenus)
 
 ---@return boolean
@@ -134,8 +145,8 @@ RageUI.Settings = {
         },
         Enabled = {
             Controller = {
-                { 0, 2 }, -- Look Up and Down
-                { 0, 1 }, -- Look Left and Right
+                { 0, 2 },  -- Look Up and Down
+                { 0, 1 },  -- Look Left and Right
                 { 0, 25 }, -- Aim
                 { 0, 24 }, -- Attack
             },
@@ -153,20 +164,20 @@ RageUI.Settings = {
                 { 0, 241 }, -- Scroll up
                 { 0, 239 }, -- Cursor X
                 { 0, 240 }, -- Cursor Y
-                { 0, 31 }, -- Move Up and Down
-                { 0, 30 }, -- Move Left and Right
-                { 0, 21 }, -- Sprint
-                { 0, 22 }, -- Jump
-                { 0, 23 }, -- Enter
-                { 0, 75 }, -- Exit Vehicle
-                { 0, 71 }, -- Accelerate Vehicle
-                { 0, 72 }, -- Vehicle Brake
-                { 0, 59 }, -- Move Vehicle Left and Right
-                { 0, 89 }, -- Fly Yaw Left
-                { 0, 9 }, -- Fly Left and Right
-                { 0, 8 }, -- Fly Up and Down
-                { 0, 90 }, -- Fly Yaw Right
-                { 0, 76 }, -- Vehicle Handbrake
+                { 0, 31 },  -- Move Up and Down
+                { 0, 30 },  -- Move Left and Right
+                { 0, 21 },  -- Sprint
+                { 0, 22 },  -- Jump
+                { 0, 23 },  -- Enter
+                { 0, 75 },  -- Exit Vehicle
+                { 0, 71 },  -- Accelerate Vehicle
+                { 0, 72 },  -- Vehicle Brake
+                { 0, 59 },  -- Move Vehicle Left and Right
+                { 0, 89 },  -- Fly Yaw Left
+                { 0, 9 },   -- Fly Left and Right
+                { 0, 8 },   -- Fly Up and Down
+                { 0, 90 },  -- Fly Yaw Right
+                { 0, 76 },  -- Vehicle Handbrake
             },
         },
     },

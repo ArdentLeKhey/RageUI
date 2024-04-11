@@ -1,3 +1,4 @@
+---@diagnostic disable: missing-parameter, inject-field, param-type-mismatch, need-check-nil
 ---
 --- @author Dylan MALANDAIN, Kalyptus
 --- @version 1.0.0
@@ -7,7 +8,7 @@
 local MainMenu = RageUI.CreateMenu("Title", "SUBTITLE");
 MainMenu.EnableMouse = true;
 
-local SubMenu = RageUI.CreateSubMenu(MainMenu, "Title", "SubTitle")
+local SubMenu = RageUI.CreateSubMenu(MainMenu, "Title", "SubTitle") --[[@as RageUIMenus (change return vaules to mach type?)]]
 
 local Checked = false;
 local ListIndex = 1;
@@ -18,7 +19,7 @@ function RageUI.PoolMenus:Example()
 	MainMenu:IsVisible(function(Items)
 		Items:Heritage(1, 2)
 		Items:AddButton("Sub Menu", "Sub Menu", { IsDisabled = false }, function(onSelected)
-	
+
 		end, SubMenu)
 		Items:AddButton("Hello world", "Hello world.", { IsDisabled = false }, function(onSelected)
 
@@ -34,8 +35,6 @@ function RageUI.PoolMenus:Example()
 				Checked = IsChecked
 			end
 		end)
-
-
 	end, function(Panels)
 		Panels:Grid(GridX, GridY, "Top", "Bottom", "Left", "Right", function(X, Y, CharacterX, CharacterY)
 			GridX = X;

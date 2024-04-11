@@ -1,3 +1,4 @@
+---@diagnostic disable: missing-parameter, redefined-local, undefined-field
 ---
 --- @author Dylan MALANDAIN, Kalyptus
 --- @version 1.0.0
@@ -124,6 +125,7 @@ function Graphics.ScreenToWorld(distance, flags)
     local mouse = vector2(GetControlNormal(2, 239), GetControlNormal(2, 240))
     local cam3DPos, forwardDir = Graphics.ScreenRelToWorld(camPos, camRot, mouse)
     local direction = camPos + forwardDir * distance
+    ---@diagnostic disable-next-line: missing-parameter
     local rayHandle = StartExpensiveSynchronousShapeTestLosProbe(cam3DPos, direction, flags, 0, 0)
     local _, hit, endCoords, surfaceNormal, entityHit = GetShapeTestResult(rayHandle)
     return (hit == 1 and true or false), endCoords, surfaceNormal, entityHit, (entityHit >= 1 and GetEntityType(entityHit) or 0), direction, mouse
